@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { socket } from './socket';
+import { ConnectionState } from './components/ConnectionState';
+import { ConnectionManager } from './components/ConnectionManager';
+import { MyForm } from './components/MyForm';
+import { Events } from './Components/Events';
+import { TextBoxChat } from './Components/TextBox';
 
 export default function App() {
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [fooEvents, setFooEvents] = useState([]);
+
+  useEffect(() => {
+    function onConnect() {
+      //setFooEvents(['adsd'])
+      setIsConnected(true);
+    } 
+
+    function onDisconnect() {
+      setIsConnected(false);
+    }
+
+    function onFooEvent(value) {
+      setFooEvents(previous => [...previous, value]);
+    }
+
+    socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
+    socket.on('event', onFooEvent);
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+      socket.off('event', onFooEvent);
+    };
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <div className="App">
+      <ConnectionState isConnected={ isConnected } />
+      <Events events={ fooEvents } />
+      <ConnectionManager />
+      <MyForm />
+      <TextBoxChat/>
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
