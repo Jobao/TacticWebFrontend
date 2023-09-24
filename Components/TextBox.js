@@ -1,7 +1,5 @@
 export function TextBoxChat(){
     return(
-        <text>
-            hola
-        </text>
+        <text>sd</text>
     )
 }

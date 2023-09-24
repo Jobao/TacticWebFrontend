@@ -1,5 +1,5 @@
 import React from 'react';
-import { socket } from '../socket';
+import { socket, joinRoom } from '../socket';
 
 export function ConnectionManager() {
   function connect() {
@@ -8,12 +8,18 @@ export function ConnectionManager() {
 
   function disconnect() {
     socket.disconnect();
+    
+  }
+
+  function joinRoo(){
+    joinRoom('pepe');
   }
 
   return (
     <>
       <button onClick={ connect }>Connect</button>
       <button onClick={ disconnect }>Disconnect</button>
+      <button onClick={ joinRoo }>JoinNewRoom</button>
     </>
   );
 }
