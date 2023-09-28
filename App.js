@@ -13,7 +13,6 @@ export default function App() {
 
   useEffect(() => {
     function onConnect() {
-      //setFooEvents(['adsd'])
       setIsConnected(true);
       socket.emit('myRoom');
     } 
@@ -22,8 +21,6 @@ export default function App() {
       setIsConnected(false);
     }
     function onRoomChange(value){
-      
-      
       setRoomAct(value);
       socket.emit('myRoom');
     }
@@ -34,13 +31,13 @@ export default function App() {
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-    socket.on('sendChat', onSendChat);
+    socket.on('publicChat', onSendChat);
     socket.on('myRoom', onRoomChange);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
-      socket.off('sendChat', onSendChat);
+      socket.off('publicChat', onSendChat);
       socket.off('myRoom', onRoomChange);
     };
   }, []);
