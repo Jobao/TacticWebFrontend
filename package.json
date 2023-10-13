@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "tacticwebfrontend",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -10,13 +10,12 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
-    "expo": "~49.0.11",
+    "expo": "~49.0.13",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.72.4",
+    "react-native": "0.72.5",
     "react-native-web": "~0.19.6",
-    "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
